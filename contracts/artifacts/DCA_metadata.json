@@ -1,0 +1,1115 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_uniswapV3Router",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_uniswapV2Router",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_quoterAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_keeper",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_feeWallet",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "SendEthFailed",
+				"type": "error"
+			},
+			{
+				"inputs": [],
+				"name": "SenderIsNotAdmin",
+				"type": "error"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					}
+				],
+				"name": "OrderCancelled",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "tokenIn",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "tokenOut",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "numOfOrders",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "interval",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "OrderCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					},
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "subOrderId",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountOut",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "rate",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "OrderExecuted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amountIn",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "OrderFilled",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "orderId",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountIn",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address[]",
+								"name": "path",
+								"type": "address[]"
+							},
+							{
+								"internalType": "address",
+								"name": "user",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "interval",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "lastSwapDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "remaining",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint8",
+								"name": "swapsLeft",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint8",
+								"name": "numOfOrders",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint256",
+								"name": "minPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maxPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "gasAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountInPerOrder",
+								"type": "uint256"
+							}
+						],
+						"indexed": false,
+						"internalType": "struct DCA.Order",
+						"name": "order",
+						"type": "tuple"
+					}
+				],
+				"name": "OrderPushed",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Paused",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Unpaused",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					}
+				],
+				"name": "cancelOrder",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountIn_",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "tokenIn",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "tokenOut",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "interval_",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "numOfOrders_",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256[2]",
+						"name": "priceRange_",
+						"type": "uint256[2]"
+					}
+				],
+				"name": "createOrder",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "orderId_",
+						"type": "bytes32"
+					}
+				],
+				"name": "forceCancelOrder",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "gasAmountForWithdraw",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "gasUsedPerTX",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					}
+				],
+				"name": "getOrder",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "bytes32",
+								"name": "orderId",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountIn",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address[]",
+								"name": "path",
+								"type": "address[]"
+							},
+							{
+								"internalType": "address",
+								"name": "user",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "interval",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "lastSwapDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "remaining",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint8",
+								"name": "swapsLeft",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint8",
+								"name": "numOfOrders",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint256",
+								"name": "minPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "maxPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "gasAmount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountInPerOrder",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct DCA.Order",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "getOrderAt",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "index",
+						"type": "bytes32"
+					}
+				],
+				"name": "indexOfUserByOrderID",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "keeper",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "orderIdOfUserByIndex",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "ordersCreatedByUser",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "paused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "orderId",
+						"type": "bytes32"
+					}
+				],
+				"name": "performUpkeep",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "quoter",
+				"outputs": [
+					{
+						"internalType": "contract IQuoter",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "recieveGas",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "recieveTokenFees",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_uniswapV3Router",
+						"type": "address"
+					}
+				],
+				"name": "setUniswapV3Router",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "tokenAmountForWithdraw",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalOrders",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "uniswapV2Router",
+				"outputs": [
+					{
+						"internalType": "contract IUniswapV2Router02",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "uniswapV3Router",
+				"outputs": [
+					{
+						"internalType": "contract ISwapRouter",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "unpause",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_fee",
+						"type": "uint256"
+					}
+				],
+				"name": "updateFee",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_feeWallet",
+						"type": "address"
+					}
+				],
+				"name": "updateFeeWallet",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_keeper",
+						"type": "address"
+					}
+				],
+				"name": "updateKeeper",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"events": {
+				"Paused(address)": {
+					"details": "Emitted when the pause is triggered by `account`."
+				},
+				"Unpaused(address)": {
+					"details": "Emitted when the pause is lifted by `account`."
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"cancelOrder(bytes32)": {
+					"params": {
+						"orderId": "Order identity."
+					}
+				},
+				"createOrder(uint256,address,address,uint256,uint8,uint256[2])": {
+					"details": "Create new order for DCA.",
+					"params": {
+						"amountIn_": "Amount to swap.",
+						"interval_": "Time interval for the swap execution.",
+						"numOfOrders_": "Number of times the order should be executed.",
+						"priceRange_": "Price range for executing the swap [minPrice, maxPrice].",
+						"tokenIn": "Address of the input token.",
+						"tokenOut": "Address of the output token."
+					}
+				},
+				"forceCancelOrder(bytes32)": {
+					"details": "This is used by the keeper to cancel any order needed",
+					"params": {
+						"orderId_": "Order Identity"
+					}
+				},
+				"getOrder(bytes32)": {
+					"params": {
+						"orderId": "ID for query."
+					},
+					"returns": {
+						"_0": "The data of the order."
+					}
+				},
+				"getOrderAt(uint256)": {
+					"params": {
+						"index": "Index number for query."
+					},
+					"returns": {
+						"_0": "The id of the order."
+					}
+				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"paused()": {
+					"details": "Returns true if the contract is paused, and false otherwise."
+				},
+				"performUpkeep(bytes32)": {
+					"details": "This is used by the keeper to perform swaps for the user created order",
+					"params": {
+						"orderId": "Order Identity"
+					}
+				},
+				"recieveGas()": {
+					"details": "Receive the gas collected from user for TXs"
+				},
+				"recieveTokenFees(address)": {
+					"details": "This is used to receive the fee collected from users for using the platform",
+					"params": {
+						"token": "is the address of the token you want to recieve fee of"
+					}
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"setUniswapV3Router(address)": {
+					"details": "if needs to update uniswapV3 router",
+					"params": {
+						"_uniswapV3Router": "new address of the uniswapV3Router"
+					}
+				},
+				"totalOrders()": {
+					"details": "Check total Number of orders currently exists for operation "
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"updateFee(uint256)": {
+					"details": "if needs to update fees (current is 1%= 100, to increate to 10%=1000 , to decrease to 0.1%= 10);",
+					"params": {
+						"_fee": "updated fee"
+					}
+				},
+				"updateFeeWallet(address)": {
+					"details": "if needs to update feeWallet address",
+					"params": {
+						"_feeWallet": "new address of the feeWallet"
+					}
+				},
+				"updateKeeper(address)": {
+					"details": "Updates the keeper address",
+					"params": {
+						"_keeper": "new address of the keeper"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"cancelOrder(bytes32)": {
+					"notice": "Cancel a existent order.can be only done by user itself"
+				},
+				"forceCancelOrder(bytes32)": {
+					"notice": "only be called by keeper"
+				},
+				"getOrder(bytes32)": {
+					"notice": "Show data of the order."
+				},
+				"getOrderAt(uint256)": {
+					"notice": "Show the order in the searched index."
+				},
+				"pause()": {
+					"notice": "Functions for pause and pause the contract."
+				},
+				"performUpkeep(bytes32)": {
+					"notice": "only be called by keeper"
+				},
+				"recieveGas()": {
+					"notice": "only keeper can call this"
+				},
+				"setUniswapV3Router(address)": {
+					"notice": "only be called by owner"
+				},
+				"unpause()": {
+					"notice": "Functions for pause and unpause the contract."
+				},
+				"updateFee(uint256)": {
+					"notice": "only be called by owner"
+				},
+				"updateFeeWallet(address)": {
+					"notice": "only be called by owner"
+				},
+				"updateKeeper(address)": {
+					"notice": "only be called by owner"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/contract1.sol": "DCA"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 10000
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0ea104e577e63faea3b69c415637e99e755dcbf64c5833d7140c35a714d6d90c",
+				"dweb:/ipfs/Qmau6x4Ns9XdyynRCNNp3RhLqijJjFm7z5fyZazfYFGYdq"
+			]
+		},
+		"@uniswap/v3-core/contracts/interfaces/callback/IUniswapV3SwapCallback.sol": {
+			"keccak256": "0x3f485fb1a44e8fbeadefb5da07d66edab3cfe809f0ac4074b1e54e3eb3c4cf69",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://095ce0626b41318c772b3ebf19d548282607f6a8f3d6c41c13edfbd5370c8652",
+				"dweb:/ipfs/QmVDZfJJ89UUCE1hMyzqpkZAtQ8jUsBgZNE5AMRG7RzRFS"
+			]
+		},
+		"contracts/Address.sol": {
+			"keccak256": "0xaf28a975a78550e45f65e559a3ad6a5ad43b9b8a37366999abd1b7084eb70721",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b7bd24e224f67f65bfadf85dc2929fa965456bb2415478bd0125471b5ce35245",
+				"dweb:/ipfs/QmRaydGr8BTHs1kvaZfsNU69pKzUAGFrvABn1KiRSbE51y"
+			]
+		},
+		"contracts/Context.sol": {
+			"keccak256": "0x2e20d32d79edb4bc6e2dfcfc122ff349f2db54a7505ee47a728247c686138b6b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://67d37db900825a8220e8255254587d7c97a8a4fe48355609f4fa65fe036ec3a8",
+				"dweb:/ipfs/QmTkNzzp8mXauWZNWKg6EZU2WierjuPqk65JMs4nkKzyYh"
+			]
+		},
+		"contracts/EnumerableSet.sol": {
+			"keccak256": "0x2b7719a772ab8e0dd5306176a94c47943ea2c8f3ebb7565dbd380bf607cdf470",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8f908a38da88b70f21a1c37ec28ffddbedde1ffa12ce22e38a7adf02409bf35e",
+				"dweb:/ipfs/QmYoEmZn4mcJHtnsFDR1c6amayeHoEuSGFkcC65NZukt3S"
+			]
+		},
+		"contracts/IERC20.sol": {
+			"keccak256": "0x1ad394f783d60226449cd387f891df39d928b26f5ce1a037b08186adb8aab0ee",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1357dc951067c2ceee82392a4f4e62a23bb7a1d29fb42df949c9e6b204070c02",
+				"dweb:/ipfs/QmavFczVuRMktz6jmxMKLVnAULw7mk6Ah9o6qJSVnaCk6L"
+			]
+		},
+		"contracts/IERC20Extended.sol": {
+			"keccak256": "0x0dc548a6ea21903917fea59d055f620b7fa71823c6431c1e892737bfc4028a9b",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://6523c62588bc1ecfa0aba77cffafa8e79c74e184090b9d897347264d436133b8",
+				"dweb:/ipfs/QmZE1ubokXiQBPcArmNi73Qo4pMH2Rs2rBkmwudQLx9sfR"
+			]
+		},
+		"contracts/IQuoter.sol": {
+			"keccak256": "0x124b4334f058f70afd8f3b04315cc0812961d400957225d0875872b2a31afbff",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://efdc8133033a1596f60f3619a317f8b3af98a6adffd85a9898c5a809c5c22417",
+				"dweb:/ipfs/QmRkGjgzgSxhUVxwqiWZuz9M4Ff3TwTbzUgN3yJd4gxMfN"
+			]
+		},
+		"contracts/ISwapRouter.sol": {
+			"keccak256": "0x9bfaf1feb32814623e627ab70f2409760b15d95f1f9b058e2b3399a8bb732975",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://a8a2c3e55965b61bcd91993d8e1d5d34b8b8a63e0fdfce87a85f6af92526fd53",
+				"dweb:/ipfs/QmQj2CSCSwqDSU4KMNWxGsN2336Cy64WgpV1X1EHXNZWxM"
+			]
+		},
+		"contracts/IUniswapV2Router01.sol": {
+			"keccak256": "0x8a3c5c449d4b7cd76513ed6995f4b86e4a86f222c770f8442f5fc128ce29b4d2",
+			"urls": [
+				"bzz-raw://1df63ca373dafae3bd0ee7fe70f890a1dc7c45ed869c01de68413e0e97ff9deb",
+				"dweb:/ipfs/QmefJgEYGUL8KX7kQKYTrDweF8GB7yjy3nw5Bmqzryg7PG"
+			]
+		},
+		"contracts/IUniswapV2Router02.sol": {
+			"keccak256": "0x744e30c133bd0f7ca9e7163433cf6d72f45c6bb1508c2c9c02f1a6db796ae59d",
+			"urls": [
+				"bzz-raw://9bf2f4454ad63d4cff03a0630e787d9e8a9deed80aec89682cd8ad6379d9ef8c",
+				"dweb:/ipfs/Qme51hQNR2wpax7ooUadhtqLtXm8ffeVVYyubLkTT4wMCG"
+			]
+		},
+		"contracts/Ownable.sol": {
+			"keccak256": "0x456507c8bc3fdd43c521cdacbbcccbda7c2f2e91c77351883875b806749a8d98",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cabf28fb75f69a7dd68ecd57656aea9a57c99b37e913cae53e7d4dcf6282dda8",
+				"dweb:/ipfs/QmNudGy8iodjd3egqeidA88fTNocp7oMT5RHGZwA3yWUC9"
+			]
+		},
+		"contracts/Pausable.sol": {
+			"keccak256": "0x3f92add22a3f53eedc5c47ea62a93f983cdddce2f28e0fd3b7da941396a8606c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2f2d4144f53c5c42643f5b16432fa8f3628cb20f4fbe6ed8fb309363d34f5ce1",
+				"dweb:/ipfs/QmcdsoVvCqFtRkQhb5cTwvWnFVB8fLuMyd5d6CZkQEnY18"
+			]
+		},
+		"contracts/ReentrancyGuard.sol": {
+			"keccak256": "0xb044fe640b81c98a5426e1b169740d0f6e103c6f6ba9524c9f5198f507242200",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c0073b69995a8184eb2f419cef48cea96fa4bdfe9c780f648eed3debb5869ae0",
+				"dweb:/ipfs/QmPCAVU4YLdXR4LUGC6SDYj67wrJWddswSkXaYMzucRGBQ"
+			]
+		},
+		"contracts/SafeCast.sol": {
+			"keccak256": "0x97003e58554e60a9bc3b5e7c21ff564c8924748577a340991dfa9c8ca6ae0cdc",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4b9d0260f1e10e956a45ad7eeecde8838de9051d8a3ae03721b7c51ec3ca7322",
+				"dweb:/ipfs/QmPVQD4RCbfcBFGeGW26thfvMekZ5ryvsESfRzUFPeHsGY"
+			]
+		},
+		"contracts/SafeERC20.sol": {
+			"keccak256": "0x594c8bffe323d4d8ff8e77406c3b895850261687d02430fc1f92dfc340578421",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9f4d63b096a3c6e5a631887b20b29dea57e85cf538e9ce8189eb8315964d7987",
+				"dweb:/ipfs/QmVUNWwTn1Sg6pcCiXEXEasu5moUwQViBZ6Bu2mDUAqkWk"
+			]
+		},
+		"contracts/SafeMath.sol": {
+			"keccak256": "0xf03cb5d3f27ab6996fbcbadc7b79e0789ad72a6a5821f9193c5154ed87aa85a1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a66a9db1267dfe7c6051549b1e174853c75e8fb9c480c3c6303ef581e83b29c",
+				"dweb:/ipfs/QmTT5SvPxDBW5QLaSL95Yph71QLMhBcYtHAcaHLEyj7ymC"
+			]
+		},
+		"contracts/contract1.sol": {
+			"keccak256": "0x09a63872e7e182c60478e3bb930263d1e86ac399fdb51342be22875c65b09387",
+			"urls": [
+				"bzz-raw://8fff6b2a0995b90e85cb7160b64bbefd5cc74902fe144ce0f43e43ab05e23993",
+				"dweb:/ipfs/QmXAxxpuwvcahmjnmWSJVhgUPd9wueDA2qVQhyar9xT6LP"
+			]
+		}
+	},
+	"version": 1
+}
